@@ -180,8 +180,6 @@ public class ChamadoDao {
             System.out.println("Erro ao atualizar detalhes do chamado");
             e.printStackTrace();
         }
-        
-        
     }
     
 }

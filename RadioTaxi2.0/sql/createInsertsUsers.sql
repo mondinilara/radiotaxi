@@ -192,7 +192,7 @@ insert into motorista values (2, 736452900938, B, 05/12/2020, 31/05/2003, 5674, 
 insert into motorista values (3, 465722238957, B, 08/10/2018, 02/07/1997, 3744, 77, 65);
 
 insert into chamado values (1, 1, 4456, '03/12/2017', '10/12/2017', 1, 1, 1001, 'Beatriz', 55, 34, 999793291);
---insert into chamado values (2, 2, 2356, '10/11/2017', '10/11/2017', 1, 1, 1001, 'Zuleica', 55, 34, 998664256);
+insert into chamado values (2, 2, 2356, '10/11/2017', '10/11/2017', 1, 1, 1001, 'Zuleica', 55, 34, 998664256);
 --insert into chamado values (3, 3, 4478, '23/12/2017', '24/12/2017', 1, 1, 1001, 'Giovana', 55, 34, 996553593);
 
 --insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 1, 1, 38400234, 'udi', 1, 1, 'MG');
