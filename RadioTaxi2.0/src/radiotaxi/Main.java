@@ -334,12 +334,12 @@ public class Main {
                                     chamado = new Chamado(cod_conveniada, num_boleto, 
                                             num_CEP, des_localizacao, idt_origem_destino, num_municipio, num_UF);
 
-                                    /*Chamado ch = new Chamado((long)1, (long)1, 
+                                    /*chamado = new Chamado((long)1, (long)1, 
                                             (long)38400, "Universidade", (long)1, (long)1, "MG");*/
 
                                     chDao = new ChamadoDao();
                                     chDao.insertChamadoDetalhe(chamado);
-
+                                    
                                     break;    
 
                                 //visualizar dados chamado
