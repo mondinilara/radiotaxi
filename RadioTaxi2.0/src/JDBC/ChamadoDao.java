@@ -174,6 +174,7 @@ public class ChamadoDao {
                     "NUM_MUNICIPIO = ?, NOM_UF = ? " +
                     "where num_chamado_seq = ? and COD_CONVENIADA = ? and NUM_BOLETO = ?";
             
+          PreparedStatement stmt = conn.prepareStatement(sql);
             
         }catch(SQLException e){
             System.out.println("Erro ao atualizar detalhes do chamado");
