@@ -181,24 +181,27 @@ public class Main {
                                     chDao = new ChamadoDao();
                                     chamados = chDao.visualizarDadosChamado();
                                     int i = 1;
-
-                                    for(Chamado c : chamados){
-                                        System.out.println("CHAMADO "+i);
-                                        System.out.println("    Codigo: "+c.getCod_conveniada());
-                                        System.out.println("    Boleto: "+c.getNum_boleto());
-                                        System.out.println("    Chamado: "+c.getNum_chamado());
-                                        System.out.println("    Data abertura: "+c.getDat_abertura_chamado());
-                                        System.out.println("    Data agendada: "+c.getDat_agenda_corrida());
-                                        System.out.println("    Atendente: "+c.getNum_pessoa_atendente());
-                                        System.out.println("    Veiculo: "+c.getNum_veiculo());
-                                        System.out.println("    Codigo custo: "+c.getCod_centro_custo());
-                                        System.out.println("    Contato: "+c.getNum_contato());
-                                        System.out.println("    DDI: "+c.getNum_tel_DDI_contato());
-                                        System.out.println("    DDD: "+c.getNum_tel_DDD_contato());
-                                        System.out.println("    Telefone: "+c.getNum_tel_contato());
-                                        System.out.println("");
-                                        i++;
-                                    }                                  
+                                    if(chamados.size() > 0){
+                                        for(Chamado c : chamados){
+                                            System.out.println("CHAMADO "+i);
+                                            System.out.println("    Codigo: "+c.getCod_conveniada());
+                                            System.out.println("    Boleto: "+c.getNum_boleto());
+                                            System.out.println("    Chamado: "+c.getNum_chamado());
+                                            System.out.println("    Data abertura: "+c.getDat_abertura_chamado());
+                                            System.out.println("    Data agendada: "+c.getDat_agenda_corrida());
+                                            System.out.println("    Atendente: "+c.getNum_pessoa_atendente());
+                                            System.out.println("    Veiculo: "+c.getNum_veiculo());
+                                            System.out.println("    Codigo custo: "+c.getCod_centro_custo());
+                                            System.out.println("    Contato: "+c.getNum_contato());
+                                            System.out.println("    DDI: "+c.getNum_tel_DDI_contato());
+                                            System.out.println("    DDD: "+c.getNum_tel_DDD_contato());
+                                            System.out.println("    Telefone: "+c.getNum_tel_contato());
+                                            System.out.println("");
+                                            i++;
+                                        }
+                                    }else{
+                                        System.out.println("Nenhum chamado encotrado");
+                                    }
 
                                     break;
 
