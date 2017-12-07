@@ -297,7 +297,7 @@ public class Main {
                                             cod_centro_custo, num_contato, num_tel_DDI_contato, 
                                             num_tel_DDD_contato, num_tel_contato);
 
-                                   /* Chamado chamado = new Chamado((long)2, (long)2, (long)2356, 
+                                   /*chamado = new Chamado((long)2, (long)2, (long)2356, 
                                     new java.sql.Date(sdf.parse("10/10/2010").getTime()), 
                                     new java.sql.Date(sdf.parse("11/10/2017").getTime()),(long)1 ,(long)1, 
                                     (long) 1001, "Zuleica", (long)55, 
@@ -380,8 +380,7 @@ public class Main {
                                 //atualizar detalhes chamado
                                 case 6:
                                     System.out.println("Digite o codigo do conveniado do chamado");
-                                    cod_conveniada = sc.nextLong();
-                                    sc.nextLine();
+                                    cod_conveniada = leitor.lerLong();
 
 
 
