@@ -255,3 +255,15 @@ end;
 grant create session to gerenteUser;
 grant select on num_Chamado_seq to gerente;	
 grant gerente to gerenteUser;
+
+-- Triger Log de Chamado
+create table logChamado(login varchar(20), data varchar(11), Hora varchar(11), cod_conveniada number(5));
+
+create or replace trigger TRG_AFT_INS_UPD_DEL_CHAMADO
+after insert or update or delete on chamado
+for each row
+begin
+    insert into logChamado (login, data, Hora, cod_conveniada)
+        select user, sysdate as data, to_char(sysdate, 'hh24:mi:ss') as "Time", :new.cod_conveniada from dual;
+end TRG_AFT_INS_UPD_DEL_CHAMADO;
+
