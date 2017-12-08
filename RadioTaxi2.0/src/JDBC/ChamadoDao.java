@@ -162,6 +162,49 @@ public class ChamadoDao {
         return chamados;
     }
     
+    public ArrayList<Chamado> visualizarDadosChamadoDetalhe(){
+        Chamado ch;
+        ArrayList<Chamado> chamadosdetalhe = new ArrayList<>();
+        String sql = "";
+        
+        try{
+            conn.setAutoCommit(false);
+            
+            sql = "SELECT * FROM system.CHAMADO_DETALHE";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                ch = new Chamado(rs.getLong("cod_conveniada"), rs.getLong("num_boleto"), rs.getLong("num_CEP"),
+                                 rs.getString("des_localizacao"), rs.getLong("idt_origem_destino"), rs.getLong("num_municipio"),
+                                 rs.getString("nom_UF"));
+                ch.setNum_Chamado_seq(rs.getLong("num_Chamado_seq"));
+                chamadosdetalhe.add(ch);
+            }
+            stmt.close();
+            
+            conn.commit();
+        }catch(SQLException e){
+           try {
+               e.printStackTrace();
+               conn.rollback();
+           } catch (SQLException ex) {
+               System.out.println("Erro no roolback");
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               e.printStackTrace();
+           }
+           System.out.println("Erro ao buscar chamado detalhe :/");
+           e.printStackTrace();
+       } finally{
+           try {
+               conn.setAutoCommit(true);
+           } catch (SQLException ex) {
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
+           }
+       }
+        return chamadosdetalhe;
+    }
+    
     public void updateDetalhesChamado(Chamado ch){
         String sql;
         
@@ -180,6 +223,138 @@ public class ChamadoDao {
             System.out.println("Erro ao atualizar detalhes do chamado");
             e.printStackTrace();
         }
+    }
+    
+    public void updateChamado(Chamado ch){
+        String sql;
+        
+        try{
+            conn.setAutoCommit(false);
+            
+            sql = "update SYSTEM.CHAMADO " +
+                    "set num_chamado = ?, " +
+                    "dat_abertura_chamado = ?, dat_agenda_corrida = ?, num_pessoa_atendente = ?, " +
+                    "num_veiculo = ?, cod_centro_custo = ?, num_contato = ?, num_tel_DDI_contato = ?, " + 
+                    "num_tel_DDD_contato = ?, num_tel_contato = ? " +
+                    "where cod_conveniada = ? and num_boleto = ? ";
+            
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, ch.getNum_chamado());
+            stmt.setDate(2, ch.getDat_abertura_chamado());
+            stmt.setDate(3, ch.getDat_agenda_corrida());
+            stmt.setLong(4, ch.getNum_pessoa_atendente());
+            stmt.setLong(5, ch.getNum_veiculo());
+            stmt.setLong(6, ch.getCod_centro_custo());
+            stmt.setString(7, ch.getNum_contato());
+            stmt.setLong(8, ch.getNum_tel_DDI_contato());
+            stmt.setLong(9, ch.getNum_tel_DDD_contato());
+            stmt.setLong(10, ch.getNum_tel_contato());
+            stmt.setLong(11, ch.getCod_conveniada());
+            stmt.setLong(12, ch.getNum_boleto());
+
+            stmt.execute();
+            stmt.close();
+            conn.commit();
+        }catch(SQLException e){
+           try {
+               e.printStackTrace();
+               conn.rollback();
+           } catch (SQLException ex) {
+               System.out.println("Erro no roolback");
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               e.printStackTrace();
+           }
+           System.out.println("Erro ao atualizar detalhes do chamado");
+           e.printStackTrace();
+        } finally{
+           try {
+               conn.setAutoCommit(true);
+           } catch (SQLException ex) {
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
+           }
+        }
+    }
+    
+    public void deleteChamado(Long cod_conveniada, Long num_boleto){
+        String sql;
+        
+        try{
+            conn.setAutoCommit(false);
+            
+            sql = "delete from SYSTEM.CHAMADO " +
+                  "where cod_conveniada = ? and num_boleto = ? ";
+            
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, cod_conveniada);
+            stmt.setLong(2, num_boleto);
+            stmt.execute();
+            stmt.close();
+            conn.commit();
+        }catch(SQLException e){
+           try {
+               e.printStackTrace();
+               conn.rollback();
+           } catch (SQLException ex) {
+               System.out.println("Erro no roolback");
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               e.printStackTrace();
+           }
+           System.out.println("Erro ao atualizar detalhes do chamado");
+           e.printStackTrace();
+        } finally{
+           try {
+               conn.setAutoCommit(true);
+           } catch (SQLException ex) {
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
+           }
+        }
+    }
+    
+    public boolean chamadoExiste(Long cod_conveniada, Long num_boleto){
+        String sql;
+        boolean existe = false;
+        
+        try{
+            conn.setAutoCommit(false);
+            
+            sql = "select count(*) as qtd from SYSTEM.CHAMADO " +
+                  "where cod_conveniada = ? and num_boleto = ? ";
+            
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, cod_conveniada);
+            stmt.setLong(2, num_boleto);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                int qtd = rs.getInt("qtd");
+                if(qtd > 0){
+                    existe = true;
+                    break;
+                }
+            }
+            stmt.close();
+            conn.commit();
+        }catch(SQLException e){
+           try {
+               e.printStackTrace();
+               conn.rollback();
+           } catch (SQLException ex) {
+               System.out.println("Erro no roolback");
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               e.printStackTrace();
+           }
+           System.out.println("Erro ao atualizar detalhes do chamado");
+           e.printStackTrace();
+        } finally{
+           try {
+               conn.setAutoCommit(true);
+           } catch (SQLException ex) {
+               Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
+           }
+        }
+        return existe;
     }
     
 }
