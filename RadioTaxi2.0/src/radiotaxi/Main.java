@@ -207,6 +207,27 @@ public class Main {
 
                                 //visualizar dados detalhes chamado
                                 case 4:
+                                    ArrayList<Chamado> chamadosDetalhe = new ArrayList<>();
+                                    chDao = new ChamadoDao();
+                                    chamados = chDao.visualizarDadosChamadoDetalhe();
+                                    i = 1;
+                                    if(chamados.size() > 0){
+                                        for(Chamado c : chamados){
+                                            System.out.println("DETALHES CHAMADO "+i);
+                                            System.out.println("    Num chamado sequencia: "+c.getNum_Chamado_seq());
+                                            System.out.println("    Codigo: "+c.getCod_conveniada());
+                                            System.out.println("    Boleto: "+c.getNum_boleto());
+                                            System.out.println("    Chamado: "+c.getNum_CEP());
+                                            System.out.println("    Data abertura: "+c.getDes_localizacao());
+                                            System.out.println("    Data agendada: "+c.getIdt_origem_destino());
+                                            System.out.println("    Atendente: "+c.getNum_municipio());
+                                            System.out.println("    Veiculo: "+c.getNum_UF());
+                                            System.out.println("");
+                                            i++;
+                                        }
+                                    }else{
+                                        System.out.println("Nenhum chamado encotrado");
+                                    }
                                     break;
 
                                 //voltar ao menu anterior 
@@ -374,10 +395,81 @@ public class Main {
 
                                 //visualizar dados detalhes chamado
                                 case 4:
+                                    ArrayList<Chamado> chamadosDetalhe = new ArrayList<>();
+                                    chDao = new ChamadoDao();
+                                    chamados = chDao.visualizarDadosChamadoDetalhe();
+                                    i = 1;
+                                    if(chamados.size() > 0){
+                                        for(Chamado c : chamados){
+                                            System.out.println("DETALHES CHAMADO "+i);
+                                            System.out.println("    Num chamado sequencia: "+c.getNum_Chamado_seq());
+                                            System.out.println("    Codigo: "+c.getCod_conveniada());
+                                            System.out.println("    Boleto: "+c.getNum_boleto());
+                                            System.out.println("    Chamado: "+c.getNum_CEP());
+                                            System.out.println("    Data abertura: "+c.getDes_localizacao());
+                                            System.out.println("    Data agendada: "+c.getIdt_origem_destino());
+                                            System.out.println("    Atendente: "+c.getNum_municipio());
+                                            System.out.println("    Veiculo: "+c.getNum_UF());
+                                            System.out.println("");
+                                            i++;
+                                        }
+                                    }else{
+                                        System.out.println("Nenhum chamado encotrado");
+                                    }
                                     break;
 
                                 //atualizar chamado
                                 case 5:
+                                    chDao = new ChamadoDao();
+                                    
+                                    System.out.println("Digite o codigo do conveniado do chamado a ser alterado: ");
+                                    cod_conveniada = leitor.lerLong();
+
+                                    System.out.println("Digite o codigo do boleto do chamado a ser alterado: ");
+                                    num_boleto = leitor.lerLong();
+                                    
+                                    if(chDao.chamadoExiste(cod_conveniada, num_boleto)){
+                                    
+                                        System.out.print("Numero chamado: ");
+                                        num_chamado = leitor.lerLong();
+
+                                        System.out.print("Data abertura chamado: ");
+                                        dat_abertura_chamado = leitor.lerData();
+
+                                        System.out.print("Data agenda corrida: ");
+                                        dat_agenda_corrida = leitor.lerData();
+
+                                        System.out.print("Numero do atendente: ");
+                                        num_pessoa_atendente = leitor.lerLong();
+
+                                        System.out.print("Numero do veiculo: ");
+                                        num_veiculo = leitor.lerLong();
+
+                                        System.out.print("Codigo centro de custo: ");
+                                        cod_centro_custo = leitor.lerLong();
+
+                                        System.out.print("Nome de contato: ");
+                                        num_contato = sc.nextLine();
+
+                                        System.out.print("DDD internacional: ");
+                                        num_tel_DDI_contato = leitor.lerLong();
+
+                                        System.out.print("DDD nacional: ");
+                                        num_tel_DDD_contato = leitor.lerLong();
+
+                                        System.out.print("Telefone: ");
+                                        num_tel_contato = leitor.lerLong();
+                                        
+                                        chamado = new Chamado(cod_conveniada, num_boleto, num_chamado, 
+                                                dat_abertura_chamado, dat_agenda_corrida, num_pessoa_atendente, num_veiculo, 
+                                                cod_centro_custo, num_contato, num_tel_DDI_contato, 
+                                                num_tel_DDD_contato, num_tel_contato);
+
+                                        chDao.updateChamado(chamado);
+                                    }else{
+                                        System.out.println("Chamado nao existe!");
+                                    }
+
                                     break;
 
                                 //atualizar detalhes chamado
@@ -392,6 +484,19 @@ public class Main {
 
                                 //deletar dados chamado
                                 case 7:
+                                    chDao = new ChamadoDao();
+                                    
+                                    System.out.println("Digite o codigo do conveniado do chamado a ser removido: ");
+                                    cod_conveniada = leitor.lerLong();
+
+                                    System.out.println("Digite o codigo do boleto do chamado a ser removido: ");
+                                    num_boleto = leitor.lerLong();
+                                    
+                                    if(chDao.chamadoExiste(cod_conveniada, num_boleto)){
+                                        chDao.deleteChamado(cod_conveniada, num_boleto);
+                                    }else{
+                                        System.out.println("Chamado nao existe!");
+                                    }
                                     break;
 
                                 //deletar dados detalhe chamado
