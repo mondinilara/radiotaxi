@@ -3,14 +3,14 @@ package radiotaxi;
 import java.sql.Date;
 
 public class Chamado {
-    private Long cod_conveniada, num_boleto, num_chamado;
+    private Long cod_conveniada, num_boleto, num_chamado, num_Chamado_seq;
     private Date dat_abertura_chamado, dat_agenda_corrida;
     private Long num_pessoa_atendente, num_veiculo, cod_centro_custo;
     private String num_contato;
     private Long num_tel_DDI_contato, num_tel_DDD_contato, num_tel_contato;
     private Long num_CEP, idt_origem_destino, num_municipio;
     private String des_localizacao, num_UF;
-
+    
     public Chamado(Long cod_conveniada, Long num_boleto, Long num_chamado,
     Date dat_abertura_chamado, Date dat_agenda_corrida, Long num_pessoa_atendente,
     Long num_veiculo, Long cod_centro_custo, String num_contato, 
@@ -175,6 +175,14 @@ public class Chamado {
 
     public void setNum_pessoa_atendente(Long num_pessoa_atendente) {
         this.num_pessoa_atendente = num_pessoa_atendente;
+    }
+
+    public Long getNum_Chamado_seq() {
+        return num_Chamado_seq;
+    }
+    
+    public void setNum_Chamado_seq(Long num_Chamado_seq) {
+        this.num_Chamado_seq = num_Chamado_seq;
     }
     
     
