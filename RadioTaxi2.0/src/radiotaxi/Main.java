@@ -217,11 +217,11 @@ public class Main {
                                             System.out.println("    Num chamado sequencia: "+c.getNum_Chamado_seq());
                                             System.out.println("    Codigo: "+c.getCod_conveniada());
                                             System.out.println("    Boleto: "+c.getNum_boleto());
-                                            System.out.println("    Chamado: "+c.getNum_CEP());
-                                            System.out.println("    Data abertura: "+c.getDes_localizacao());
-                                            System.out.println("    Data agendada: "+c.getIdt_origem_destino());
-                                            System.out.println("    Atendente: "+c.getNum_municipio());
-                                            System.out.println("    Veiculo: "+c.getNum_UF());
+                                            System.out.println("    CEP: "+c.getNum_CEP());
+                                            System.out.println("    Localizacao: "+c.getDes_localizacao());
+                                            System.out.println("    Identificacao origem destino: "+c.getIdt_origem_destino());
+                                            System.out.println("    Numero do Municipio: "+c.getNum_municipio());
+                                            System.out.println("    Nome estado: "+c.getNum_UF());
                                             System.out.println("");
                                             i++;
                                         }
@@ -405,11 +405,11 @@ public class Main {
                                             System.out.println("    Num chamado sequencia: "+c.getNum_Chamado_seq());
                                             System.out.println("    Codigo: "+c.getCod_conveniada());
                                             System.out.println("    Boleto: "+c.getNum_boleto());
-                                            System.out.println("    Chamado: "+c.getNum_CEP());
-                                            System.out.println("    Data abertura: "+c.getDes_localizacao());
-                                            System.out.println("    Data agendada: "+c.getIdt_origem_destino());
-                                            System.out.println("    Atendente: "+c.getNum_municipio());
-                                            System.out.println("    Veiculo: "+c.getNum_UF());
+                                            System.out.println("    CEP: "+c.getNum_CEP());
+                                            System.out.println("    Localizacao: "+c.getDes_localizacao());
+                                            System.out.println("    Identificacao origem destino: "+c.getIdt_origem_destino());
+                                            System.out.println("    Numero do Municipio: "+c.getNum_municipio());
+                                            System.out.println("    Nome estado: "+c.getNum_UF());
                                             System.out.println("");
                                             i++;
                                         }
