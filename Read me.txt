@@ -1,0 +1,23 @@
+Seja bem vindo ao Sistema de Radio Taxi.
+Para utiliza-lo você precisará instalar:
+- Banco de dados oracle
+- IDE Netbeans 8.1 ou 8.2
+- Versão do java 1.8.0_144
+
+Agora siga as instruções abaixo:
+
+1. Abra o banco de dados da oracle
+2. Execute o script que esta na pasta sql/createInsertsUsers.sql
+3. Abra o NetBeans
+4. Abra o projeto radioTaxi2.0 no netbeans
+5. Aperte F6 ou na seta verde na parte superior da tela
+6. Digite seu usuário e senha*
+7. Pronto! Você já esta usando o sistema
+
+*Usuario padrão de gerente é
+	user: gerenteuser
+	pass: oracle
+
+*Usuario padrão do atendente é
+	user: atendenteuser
+	pass: oracle
