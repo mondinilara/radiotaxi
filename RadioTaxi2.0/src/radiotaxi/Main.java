@@ -38,7 +38,7 @@ public class Main {
         ChamadoDao chDao;
         
         System.out.println("------------ Radio Taxi ------------");
-        System.out.println("Seja bem-vindo(a) ao nosso sistema!");
+        System.out.println("Seja bem-vindo(a)!");
         System.out.println("Por favor digite ");
         
         do{

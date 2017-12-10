@@ -1,8 +1,3 @@
---Trigger Log detalhes chamado
-create table logDetalheChamado(login varchar2(20), data date, hora varchar(11), 
-    operacao varchar2(20), num_Chamado_seq number(5), 
-    cod_conveniada number(5), num_boleto number(5));
-    
 drop table estado cascade constraints;
 drop table bairro cascade constraints;
 drop table cidade cascade constraints;
@@ -17,6 +12,12 @@ drop table chamado_detalhe cascade constraints;
 drop table estado_civil cascade constraints;
 drop table motorista cascade constraints;
 drop sequence num_Chamado_seq;
+drop user atendenteUser cascade;
+drop user gerenteUser cascade;
+drop role atendente;
+drop role gerente;
+drop table logDetalheChamado cascade constraints;
+drop table logChamado cascade constraints;
 
 create table ESTADO(
 	nom_UF char(2) primary key,
@@ -34,9 +35,11 @@ create table CIDADE(
 create table BAIRRO(
 	num_municipio number(5),
 	nom_UF char(2),
-        nom_bairro varchar2(50),
-	primary key(num_municipio, nom_UF)
+    nom_bairro varchar2(50),
+	primary key(num_municipio, nom_UF),
+	foreign key(num_municipio, nom_UF) references CIDADE
 );
+
 
 create table CEP(
 	num_municipio number(5),
@@ -80,8 +83,7 @@ Create table VEICULO(
 	desc_cor varchar2(20),
 	num_pessoa number(5),
 	foreign key (num_pessoa) references PESSOA,
-	foreign key (cod_marca_veiculo, cod_tipo_veiculo, cod_modelo_veiculo) references MODELO (cod_marca_veiculo, cod_tipo_veiculo, cod_modelo_veiculo),
-	foreign key (num_pessoa) references pessoa
+	foreign key (cod_marca_veiculo, cod_tipo_veiculo, cod_modelo_veiculo) references MODELO (cod_marca_veiculo, cod_tipo_veiculo, cod_modelo_veiculo)
 );
 
 create table ESTADO_CIVIL(
@@ -97,7 +99,8 @@ create table PESSOA_FISICA(
 	num_orgao_emisor_docto_identil varchar2(60),
 	dat_nascimento date,
 	idt_sexo char(1),
-	cod_estado_civil number(1) references ESTADO_CIVIL,
+	cod_estado_civil number(1),
+	foreign key (cod_estado_civil) references ESTADO_CIVIL(cod_estado_civil),
 	foreign key (num_pessoa_pf) references PESSOA(num_pessoa)
 );
 
@@ -147,6 +150,43 @@ create table CHAMADO_DETALHE(
 
 create sequence num_Chamado_seq start with 1;
 
+-- triggers --
+-- Trigger Log de Chamado
+create table logChamado(login varchar(20), data varchar(11), Hora varchar(11), cod_conveniada number(5));
+
+create or replace trigger TRG_AFT_INS_UPD_DEL_CHAMADO
+after insert or update or delete on chamado
+for each row
+begin
+    insert into logChamado (login, data, Hora, cod_conveniada)
+        select user, sysdate as data, to_char(sysdate, 'hh24:mi:ss') as "Time", :new.cod_conveniada from dual;
+end TRG_AFT_INS_UPD_DEL_CHAMADO;
+
+--Trigger Log detalhes chamado
+create table logDetalheChamado(login varchar2(20), data date, hora varchar(11), 
+    operacao varchar2(20), num_Chamado_seq number(5), 
+    cod_conveniada number(5), num_boleto number(5));
+    
+create or replace trigger detalhe_chamado_log
+after insert or update or delete on chamado_detalhe
+for each row
+begin
+    if inserting then
+        insert into logDetalheChamado (login, data, hora, operacao, num_Chamado_seq, cod_conveniada, num_boleto)
+            select user, sysdate, to_char(sysdate, 'hh24:mi:ss') as "Time", 'insert',:new.num_Chamado_seq, :new.cod_conveniada, :new.num_boleto from dual;
+    end if;
+    
+    if deleting then
+        insert into logDetalheChamado (login, data, hora, operacao, num_Chamado_seq, cod_conveniada, num_boleto)
+            select user, sysdate, to_char(sysdate, 'hh24:mi:ss') as "Time", 'delete',:old.num_Chamado_seq, :old.cod_conveniada, :old.num_boleto from dual;
+    end if;
+    
+    if updating then
+        insert into logDetalheChamado (login, data, hora, operacao, num_Chamado_seq, cod_conveniada, num_boleto)
+            select user, sysdate, to_char(sysdate, 'hh24:mi:ss') as "Time", 'update',:new.num_Chamado_seq, :new.cod_conveniada, :new.num_boleto from dual;
+    end if;
+end;
+
 --inserts---
 insert into estado values ('MG', 'Minas Gerais');
 insert into estado values ('SP', 'Sao Paulo');
@@ -188,21 +228,21 @@ insert into estado_civil values (1, 'solteiro');
 insert into estado_civil values (2, 'viuvo');
 insert into estado_civil values (3, 'casado');
 
-insert into pessoa_fisica values (1, 'danielle', 12555728491, 111, SSPMG, '01/02/1999', 'f', 1);
-insert into pessoa_fisica values (2, 'jean', 12547639102, 653, PCMG, '31/10/1997', 'm', 1);
-insert into pessoa_fisica values (3, 'alex', 84736273847, 879, SSPMG, '10/10/1996', 'm', 1);
+insert into pessoa_fisica values (1, 'danielle', 12555728491, 111, 'SSPMG', '01/02/1999', 'f', 1);
+insert into pessoa_fisica values (2, 'jean', 12547639102, 653, 'PCMG', '31/10/1997', 'm', 1);
+insert into pessoa_fisica values (3, 'alex', 84736273847, 879, 'SSPMG', '10/10/1996', 'm', 1);
 
-insert into motorista values (1, 763827453891, B, 20/10/2019, 20/04/2002, 5678, 31, 45);
-insert into motorista values (2, 736452900938, B, 05/12/2020, 31/05/2003, 5674, 44, 90);
-insert into motorista values (3, 465722238957, B, 08/10/2018, 02/07/1997, 3744, 77, 65);
+insert into motorista values (1, 763827453891, 'B', '20/10/2019', '20/04/2002', 5678, 31, 45);
+insert into motorista values (2, 736452900938, 'B', '05/12/2020', '31/05/2003', 5674, 44, 90);
+insert into motorista values (3, 465722238957, 'B', '08/10/2018', '02/07/1997', 3744, 77, 65);
 
 insert into chamado values (1, 1, 4456, '03/12/2017', '10/12/2017', 1, 1, 1001, 'Beatriz', 55, 34, 999793291);
 insert into chamado values (2, 2, 2356, '10/11/2017', '10/11/2017', 1, 1, 1001, 'Zuleica', 55, 34, 998664256);
---insert into chamado values (3, 3, 4478, '23/12/2017', '24/12/2017', 1, 1, 1001, 'Giovana', 55, 34, 996553593);
+insert into chamado values (3, 3, 4478, '23/12/2017', '24/12/2017', 1, 1, 1001, 'Giovana', 55, 34, 996553593);
 
---insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 1, 1, 38400, 'udi', 1, 1, 'MG');
---insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 2, 2, 38408, 'udi', 1, 1, 'MG');
---insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 3, 3, 38408240, 'udi', 1, 1, 'MG');
+insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 1, 1, 38400234, 'udi', 1, 1, 'MG');
+insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 2, 2, 38408946, 'udi', 1, 1, 'MG');
+insert into chamado_detalhe values (NUM_CHAMADO_SEQ.nextVal, 3, 3, 38408240, 'udi', 1, 1, 'MG');
 
 --select num_chamado_seq.currval from dual;
 
@@ -242,12 +282,26 @@ grant select on pessoa_fisica to atendente;
 
 grant atendente to atendenteUser;
 
---GERENTE
+--GERENTE 
 create user gerenteUser IDENTIFIED BY oracle default tablespace users temporary tablespace temp quota 100m on users;
 
 create role gerente;
 
-declare
+grant select on motorista to gerente;
+grant select on estado to gerente;
+grant select on bairro to gerente;
+grant select on cidade to gerente;
+grant select on cep to gerente;
+grant select on marca to gerente;
+grant select on modelo to gerente;
+grant select on pessoa to gerente;
+grant select on veiculo to gerente;
+grant select on chamado to gerente;
+grant select on chamado_detalhe to gerente;
+grant select on estado_civil to gerente;
+grant select on pessoa_fisica to gerente;
+
+/*declare
     cursor c1 is select table_name from user_tables;
     cmd varchar2(200);
 begin
@@ -255,44 +309,7 @@ begin
         cmd := 'GRANT SELECT, UPDATE, DELETE, INSERT ON '||c.table_name||' TO GERENTE';
         execute immediate cmd;
     end loop;
-end;
+end;*/
 
-grant create session to gerenteUser;
 grant select on num_Chamado_seq to gerente;	
 grant gerente to gerenteUser;
-
--- Trigger Log de Chamado
-create table logChamado(login varchar(20), data varchar(11), Hora varchar(11), cod_conveniada number(5));
-
-create or replace trigger TRG_AFT_INS_UPD_DEL_CHAMADO
-after insert or update or delete on chamado
-for each row
-begin
-    insert into logChamado (login, data, Hora, cod_conveniada)
-        select user, sysdate as data, to_char(sysdate, 'hh24:mi:ss') as "Time", :new.cod_conveniada from dual;
-end TRG_AFT_INS_UPD_DEL_CHAMADO;
-
---Trigger Log detalhes chamado
-create table logDetalheChamado(login varchar2(20), data date, hora varchar(11), 
-    operacao varchar2(20), num_Chamado_seq number(5), 
-    cod_conveniada number(5), num_boleto number(5));
-    
-create or replace trigger detalhe_chamado_log
-after insert or update or delete on chamado_detalhe
-for each row
-begin
-    if inserting then
-        insert into logDetalheChamado (login, data, hora, operacao, num_Chamado_seq, cod_conveniada, num_boleto)
-            select user, sysdate, to_char(sysdate, 'hh24:mi:ss') as "Time", 'insert',:new.num_Chamado_seq, :new.cod_conveniada, :new.num_boleto from dual;
-    end if;
-    
-    if deleting then
-        insert into logDetalheChamado (login, data, hora, operacao, num_Chamado_seq, cod_conveniada, num_boleto)
-            select user, sysdate, to_char(sysdate, 'hh24:mi:ss') as "Time", 'delete',:old.num_Chamado_seq, :old.cod_conveniada, :old.num_boleto from dual;
-    end if;
-    
-    if updating then
-        insert into logDetalheChamado (login, data, hora, operacao, num_Chamado_seq, cod_conveniada, num_boleto)
-            select user, sysdate, to_char(sysdate, 'hh24:mi:ss') as "Time", 'update',:new.num_Chamado_seq, :new.cod_conveniada, :new.num_boleto from dual;
-    end if;
-end;
