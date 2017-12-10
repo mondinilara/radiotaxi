@@ -51,21 +51,18 @@ public class ChamadoDao {
         
        } catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao cadastrar chamado :/");
-           e.printStackTrace();
+           System.out.println("Erro ao cadastrar chamado :/  "+e);
        } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
        }
     }
@@ -100,21 +97,18 @@ public class ChamadoDao {
         
        } catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao cadastrar detalhes chamado :/");
-           e.printStackTrace();
+           System.out.println("Erro ao cadastrar detalhes chamado :/ "+e);
        } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
        }
     }
@@ -142,21 +136,18 @@ public class ChamadoDao {
             conn.commit();
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao buscar chamado :/");
-           e.printStackTrace();
+           System.out.println("Erro ao buscar chamado :/ "+e);
        } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
        }
         return chamados;
@@ -185,21 +176,18 @@ public class ChamadoDao {
             conn.commit();
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao buscar chamado detalhe :/");
-           e.printStackTrace();
+           System.out.println("Erro ao buscar chamado detalhe :/ "+e);
        } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
        }
         return chamadosdetalhe;
@@ -238,21 +226,18 @@ public class ChamadoDao {
             
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao atualizar detalhes chamado");
-           e.printStackTrace();
+           System.out.println("Erro ao atualizar detalhes chamado "+e);
         } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
         }
     }
@@ -291,21 +276,18 @@ public class ChamadoDao {
             System.out.println("");
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao atualizar chamado");
-           e.printStackTrace();
+           System.out.println("Erro ao atualizar chamado "+e);
         } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
         }
     }
@@ -329,21 +311,18 @@ public class ChamadoDao {
             System.out.println("");
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao deletar chamado");
-           e.printStackTrace();
+           System.out.println("Erro ao deletar chamado "+e);
         } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
         }
     }
@@ -370,21 +349,18 @@ public class ChamadoDao {
             System.out.println("");
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro ao deletar detalhes chamado");
-           e.printStackTrace();
+           System.out.println("Erro ao deletar detalhes chamado "+e);
         } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+                System.out.println(""+ex);
            }
         }
     }
@@ -414,21 +390,18 @@ public class ChamadoDao {
             conn.commit();
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro verificar se chamado existe");
-           e.printStackTrace();
+           System.out.println("Erro verificar se chamado existe "+e);
         } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
         }
         return existe;
@@ -462,21 +435,18 @@ public class ChamadoDao {
             conn.commit();
         }catch(SQLException e){
            try {
-               e.printStackTrace();
                conn.rollback();
            } catch (SQLException ex) {
-               System.out.println("Erro no roolback");
+               System.out.println("Erro no roolback: "+ex);
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               e.printStackTrace();
            }
-           System.out.println("Erro verificar se detalhes chamado existe");
-           e.printStackTrace();
+           System.out.println("Erro verificar se detalhes chamado existe "+e);
         } finally{
            try {
                conn.setAutoCommit(true);
            } catch (SQLException ex) {
                Logger.getLogger(ChamadoDao.class.getName()).log(Level.SEVERE, null, ex);
-               ex.printStackTrace();
+               System.out.println(""+ex);
            }
         }
         return existe;
