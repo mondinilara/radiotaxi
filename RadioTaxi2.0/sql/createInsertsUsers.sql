@@ -188,13 +188,13 @@ insert into estado_civil values (1, 'solteiro');
 insert into estado_civil values (2, 'viuvo');
 insert into estado_civil values (3, 'casado');
 
-insert into pessoa_fisica values (1, 'danielle', 12555728491, 111, SSPMG, '01/02/1999', 'f', 1);
-insert into pessoa_fisica values (2, 'jean', 12547639102, 653, PCMG, '31/10/1997', 'm', 1);
-insert into pessoa_fisica values (3, 'alex', 84736273847, 879, SSPMG, '10/10/1996', 'm', 1);
+insert into pessoa_fisica values (1, 'danielle', 12555728491, '111', 'SSPMG', '01/02/1999', 'f', 1);
+insert into pessoa_fisica values (2, 'jean', 12547639102, '653', 'PCMG', '31/10/1997', 'm', 1);
+insert into pessoa_fisica values (3, 'alex', 84736273847, '879', 'SSPMG', '10/10/1996', 'm', 1);
 
-insert into motorista values (1, 763827453891, B, 20/10/2019, 20/04/2002, 5678, 31, 45);
-insert into motorista values (2, 736452900938, B, 05/12/2020, 31/05/2003, 5674, 44, 90);
-insert into motorista values (3, 465722238957, B, 08/10/2018, 02/07/1997, 3744, 77, 65);
+insert into motorista values (1, 763827453891, 'B', '20/10/2019', '20/04/2002', 5678, 31, 45);
+insert into motorista values (2, 736452900938, 'B', '05/12/2020', '31/05/2003', 5674, 44, 90);
+insert into motorista values (3, 465722238957, 'B', '8/10/2018', '02/07/1997', 3744, 77, 65);
 
 insert into chamado values (1, 1, 4456, '03/12/2017', '10/12/2017', 1, 1, 1001, 'Beatriz', 55, 34, 999793291);
 insert into chamado values (2, 2, 2356, '10/11/2017', '10/11/2017', 1, 1, 1001, 'Zuleica', 55, 34, 998664256);
