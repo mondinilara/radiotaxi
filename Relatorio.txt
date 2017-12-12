@@ -1,0 +1,19 @@
+Relatório BD2 – Radio Taxi
+
+Integrantes: 
+Danielle Gonçalves Barbosa 	11521BSI228
+Lara Mondini Martins 		11521BSI217
+Leandro Eduardo Carneiro	11521BSI211
+
+O sistema radio taxi foi construído com o intuído de melhorar a manipulação de dados da empresa Radio Taxi. Foram usadas as seguintes tecnologias:
+	• Oracle developer
+	• Banco de dados oracle
+	• JDBC6.jar
+	• Java versao 1.8.0_144 
+	• IDE Netbeans
+
+Esse sistema contém dois tipos de acesso, atendente e gerente.
+O gerente tem acesso a todas as funcionalidades: cadastrar, visualizar, atualizar e excluir um chamado e detalhes do chamado. Já o atendente pode apenas cadastrar e visualizar os dados de chamado e detalhe chamado.
+Para protegermos o acesso do atendente na tabela de motorista criamos um view, motoristaView, e selecionamos os campos que o atendente pode visualizar. Demos acesso ao atendente nessa view em vez da tabela motorista.
+
+
