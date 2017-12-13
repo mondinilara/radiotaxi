@@ -250,19 +250,19 @@ grant atendente to atendenteUser;
 create user gerenteUser IDENTIFIED BY oracle default tablespace users temporary tablespace temp quota 100m on users;
 
 create role gerente;
-grant select on motorista to gerente;
-grant select on estado to gerente;
-grant select on bairro to gerente;
-grant select on cidade to gerente;
-grant select on cep to gerente;
-grant select on marca to gerente;
-grant select on modelo to gerente;
-grant select on pessoa to gerente;
-grant select on veiculo to gerente;
-grant select on chamado to gerente;
-grant select on chamado_detalhe to gerente;
-grant select on estado_civil to gerente;
-grant select on pessoa_fisica to gerente;
+grant select, update, delete, insert on motorista to gerente;
+grant select, update, delete, insert on estado to gerente;
+grant select, update, delete, insert on bairro to gerente;
+grant select, update, delete, insert on cidade to gerente;
+grant select, update, delete, insert on cep to gerente;
+grant select, update, delete, insert on marca to gerente;
+grant select, update, delete, insert on modelo to gerente;
+grant select, update, delete, insert on pessoa to gerente;
+grant select, update, delete, insert on veiculo to gerente;
+grant select, update, delete, insert on chamado to gerente;
+grant select, update, delete, insert on chamado_detalhe to gerente;
+grant select, update, delete, insert on estado_civil to gerente;
+grant select, update, delete, insert on pessoa_fisica to gerente;
 grant create session to gerenteUser;
 
 
